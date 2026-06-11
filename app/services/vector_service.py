@@ -3,7 +3,7 @@ import chromadb
 class VectorService:
 
     def __init__(self):
-        self.client = chromadb.PersistentClient(path="data/chroma")
+        self.client = chromadb.PersistentClient(path="storage/chroma")
         self.collection = self.client.get_or_create_collection(name="documents") # Create or get the collection named "documents"
     
     # Add documents to the collection with their corresponding embeddings

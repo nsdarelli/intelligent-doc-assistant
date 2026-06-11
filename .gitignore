@@ -13,4 +13,4 @@ data/processed/*
 *.log
 
 #Chromadb
-data/chroma/
+storage/chroma/
