@@ -6,4 +6,6 @@ class ChunkService:
     def create_chunks(text: str):
         splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
 
-        return splitter.split_text(text)
+        chunks = splitter.create_documents([text], metadatas=[{"source": "banking.pdf"}])
+
+        return chunks
