@@ -11,3 +11,6 @@ data/raw/*
 data/processed/*
 
 *.log
+
+#Chromadb
+storage/chroma/
