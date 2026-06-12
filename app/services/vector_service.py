@@ -16,7 +16,8 @@ class VectorService:
     def retrieve_context(self, query_embedding, top_k=3):
         results = self.search(query_embedding, top_k)
         docs = results['documents'][0]  # Get the retrieved documents
-        
+        print(f"Retrieved {len(docs)} documents for the query. {"\n".join(docs)}")  # Print the retrieved documents
+
         return "\n\n".join(docs)
 
     
