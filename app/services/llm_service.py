@@ -13,17 +13,23 @@ class LLMService:
     def generate_response(self, query: str, context: str):
         prompt = f"""
         You are a helpful document assistant.
-        Answer ONLY using the provided context.
+
+        Use ONLY the supplied context.
+
+        If the answer cannot be found in the context,
+        respond with:
+
+        "I could not find that information in the document."
 
         Context:
         {context}
 
         Question:
         {query}
+
+        Answer:
         """
-        print("===== PROMPT =====")
-        print(prompt)
-        print("==================")
+
         max_retries = 3
 
         for attempt in range(max_retries):

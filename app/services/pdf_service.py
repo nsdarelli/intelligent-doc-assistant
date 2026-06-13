@@ -9,12 +9,12 @@ class PDFService:
             print(f"PDF {pdf_path} is encrypted. Skipping.")
             return ""
         
-        text = ""
+        pages = []
 
-        for page in reader.pages:
-            text_page = page.extract_text()
+        for page_num, page in enumerate(reader.pages):
+            pages.append({
+                "text": page.extract_text(),
+                "page_number": page_num + 1
+            })
 
-            if text_page:
-                text += text_page + "\n"
-                
-        return text
+        return pages

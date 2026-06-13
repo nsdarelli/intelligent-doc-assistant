@@ -8,12 +8,27 @@ embedding_service = EmbeddingService()
 query_embedding = embedding_service.embed_query(query)
 
 vector_service = VectorService()
-context = vector_service.retrieve_context(query_embedding)
+retrieval_result = vector_service.retrieve_context(query_embedding)
+
+context = retrieval_result['documents']
+sources = retrieval_result['metadatas']
+
 print(f"\nContext:\n{context}")
 
+# for source in sources:
+#     print(f"-{source['source']}"
+#         f"(page - {source['page_number']})"
+#         f"(chunk_id - {source['chunk_id']})"
+#     )
 llm_service = LLMService()
 
 answer = llm_service.generate_response(query=query, context=context)
 
 print(f"\nAnswer:\n")
 print(answer)
+print(f"\nSources:\n")
+for source in sources:
+    print(f"-{source['source']}"
+        f"(page - {source['page_number']})"
+        f"(chunk_id - {source['chunk_id']})"
+    )
