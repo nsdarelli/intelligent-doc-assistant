@@ -11,7 +11,7 @@ vector_service = VectorService()
 retrieval_result = vector_service.retrieve_context(query_embedding)
 
 context = retrieval_result['documents']
-sources = retrieval_result['metadatas']
+sources = retrieval_result['sources']
 
 print(f"\nContext:\n{context}")
 
@@ -27,8 +27,12 @@ answer = llm_service.generate_response(query=query, context=context)
 print(f"\nAnswer:\n")
 print(answer)
 print(f"\nSources:\n")
+
+seen = set()
 for source in sources:
-    print(f"-{source['source']}"
-        f"(page - {source['page_number']})"
-        f"(chunk_id - {source['chunk_id']})"
-    )
+
+    key = (source['source'], source['page_number'], source['chunk_id'])
+
+    if key not in seen:
+        print(f"- {source['source']} (page - {source['page_number']}, chunk_id - {source['chunk_id']})")
+        seen.add(key)
