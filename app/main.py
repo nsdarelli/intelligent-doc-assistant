@@ -1,7 +1,6 @@
 from fastapi import FastAPI
+from app.api.routes.health import router as health_router
 
-app = FastAPI(title="Intelligent Document Assistant")
+app = FastAPI(title="Intelligent Document Assistant", version="1.0.0")
 
-@app.get("/")
-def health():
-    return {"status": "healthy"}
+app.include_router(health_router)
