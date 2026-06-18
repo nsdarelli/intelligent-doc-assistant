@@ -1,3 +1,5 @@
+from pathlib import Path
+
 class DocumentService:
     def __init__(self, vector_service):
         self.vector_service = vector_service
@@ -16,3 +18,16 @@ class DocumentService:
         }
         for source, count in documents.items()
         ]
+    
+    def delete_document(self, source):
+        self.vector_service.delete_doc(source)
+
+        file_path = Path(f"data/raw/{source}")
+
+        if file_path.exists():
+            file_path.unlink()
+
+        return {
+            "status": "success",
+            "source": source
+        }

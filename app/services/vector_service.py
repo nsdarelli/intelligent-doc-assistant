@@ -44,3 +44,8 @@ class VectorService:
         result = self.collection.get(where={"document_hash": document_hash})
 
         return len(result["ids"])>0
+    
+    def delete_doc(self, source):
+        results = self.collection.get(where={"source": source})
+        ids = results["ids"]
+        self.collection.delete(ids=ids)
