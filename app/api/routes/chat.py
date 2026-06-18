@@ -16,4 +16,5 @@ def chat(request: ChatRequest):
 
         return ChatResponse(response=response, sources=retrieval_result["sources"])
     except Exception as e:
-        return e
+        print(f"Error in chat: {str(e)}")
+        return ChatResponse(response=f"Error: {str(e)}", sources=[])

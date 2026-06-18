@@ -13,7 +13,7 @@ async def ingest(file: UploadFile = File(...)):
     with open(file_path, "wb") as f:
         f.write(contents)
 
-    result = ingestion_service.ingest_pdf(file_path)
+    result = ingestion_service.ingest_document(file_path)
     print(result)
     print(type(result))
 
