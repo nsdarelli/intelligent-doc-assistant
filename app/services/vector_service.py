@@ -7,7 +7,13 @@ class VectorService:
         self.collection = self.client.get_or_create_collection(name="documents") # Create or get the collection named "documents"
     
     # Add documents to the collection with their corresponding embeddings
-    def add_documents(self, ids, documents, embeddings, metadatas=None):
+    def add_documents(self, ids, documents, document_hash, embeddings, file_path):
+        metadatas = [{
+            "document_hash": document_hash,
+            "source_file": file_path
+        }
+        for _ in documents
+        ]
         self.collection.add(ids=ids, documents=documents, embeddings=embeddings.tolist(), metadatas=metadatas)
 
     def search(self, query_embedding, top_k=3):
@@ -28,3 +34,8 @@ class VectorService:
         result = self.collection.get(include=["metadatas"])
 
         return result["metadatas"]
+
+    def document_exists(self, document_hash: str) -> bool:
+        result = self.collection.get(where={"document_hash": document_hash})
+
+        return len(result["ids"])>0

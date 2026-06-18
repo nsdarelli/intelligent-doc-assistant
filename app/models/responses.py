@@ -8,3 +8,10 @@ class Sources(BaseModel):
 class ChatResponse(BaseModel):
     response: str
     sources: list[Sources]
+
+class IngestResponse(BaseModel):
+    status: str
+    file_name: str
+    pages: int = None
+    chunks: int = None
+    message: str = None

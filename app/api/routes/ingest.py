@@ -5,6 +5,7 @@ router = APIRouter()
 
 @router.post("/ingest", tags=["ingest"])
 async def ingest(file: UploadFile = File(...)):
+    print(f"Received: {file.filename}")
     file_path = f"data/raw/{file.filename}"
 
     contents = await file.read()
@@ -13,5 +14,7 @@ async def ingest(file: UploadFile = File(...)):
         f.write(contents)
 
     result = ingestion_service.ingest_pdf(file_path)
+    print(result)
+    print(type(result))
 
     return result
