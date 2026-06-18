@@ -6,3 +6,5 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger("intelligent-doc-assistant")
+
+logging.getLogger("httpx").setLevel(logging.WARNING)
