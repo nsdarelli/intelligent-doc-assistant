@@ -4,7 +4,7 @@ from pathlib import Path
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from app.services.pdf_service import PDFService
+
 from app.services.chunk_service import ChunkService
 from app.services.embedding_service import EmbeddingService
 from app.services.vector_service import VectorService
@@ -26,7 +26,7 @@ embedding_service = EmbeddingService()
 embeddings = embedding_service.embed_documents(texts)
 
 vector_service = VectorService()
-vector_service.add_documents(ids=[str(i) for i in range(len(texts))], documents=texts, embeddings=embeddings, metadatas=metadatas)
+vector_service.add_documents(ids=[str(i) for i in range(len(texts))], chunks=chunks, embeddings=embeddings, metadatas=metadatas)
 
 sample = vector_service.collection.get()
 
