@@ -23,3 +23,8 @@ class VectorService:
             "sources": results['metadatas'][0],  # Get the metadata of the retrieved documents
             "distances": results['distances'][0]  # Get the distances of the retrieved documents
         }
+
+    def get_all_documents(self):
+        result = self.collection.get(include=["metadatas"])
+
+        return result["metadatas"]
