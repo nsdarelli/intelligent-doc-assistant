@@ -12,3 +12,6 @@ class DocumentProcessingException(Exception):
 
 class RetrievalException(Exception):
     pass
+
+class DocNotFoundError(Exception):
+    pass
