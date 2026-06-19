@@ -1,5 +1,6 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
+from app.core.config import settings
 
 
 class ChunkService:
@@ -8,8 +9,8 @@ class ChunkService:
     def create_chunks(documents, source_file):
 
         splitter = RecursiveCharacterTextSplitter(
-            chunk_size=500,
-            chunk_overlap=100
+            chunk_size=settings.CHUNK_SIZE,
+            chunk_overlap=settings.CHUNK_OVERLAP
         )
 
         all_chunks = []

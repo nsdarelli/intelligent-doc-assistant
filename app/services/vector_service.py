@@ -1,10 +1,12 @@
 import chromadb
+from app.core.config import settings
+from app.core.exceptions import DocNotFoundError
 
 class VectorService:
 
     def __init__(self):
-        self.client = chromadb.PersistentClient(path="storage/chroma")
-        self.collection = self.client.get_or_create_collection(name="documents") # Create or get the collection named "documents"
+        self.client = chromadb.PersistentClient(path=settings.CHROMA_PATH)
+        self.collection = self.client.get_or_create_collection(name=settings.COLLECTION_NAME) # Create or get the collection named "documents"
     
     # Add documents to the collection with their corresponding embeddings
     def add_documents(self, ids, chunks, document_hash, embeddings, file_path):
@@ -47,5 +49,7 @@ class VectorService:
     
     def delete_doc(self, source):
         results = self.collection.get(where={"source": source})
-        ids = results["ids"]
+        ids = results.get("ids", [])
+        if not ids:
+            raise DocNotFoundError(f"Document {source} not found in vector store")
         self.collection.delete(ids=ids)
