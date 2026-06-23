@@ -28,6 +28,7 @@ class IngestionService:
         texts = [chunk.page_content for chunk in chunks]
         embeddings = self.embedding_service.embed_documents(texts)
         logger.info(f"Generated {len(embeddings)}")
+        logger.info(f"Generated {len(embeddings[0])}")
         ids = [str(uuid.uuid4()) for _ in range(len(texts))]
         self.vector_service.add_documents(ids=ids, chunks=chunks, document_hash=document_hash, embeddings=embeddings, file_path=file_path)
         print(f"processing: {file_name}")
