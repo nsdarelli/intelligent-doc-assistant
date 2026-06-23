@@ -21,10 +21,10 @@ class VectorService:
         
         documents = [chunk.page_content for chunk in chunks]
 
-        self.collection.add(ids=ids, documents=documents, embeddings=embeddings.tolist(), metadatas=metadatas)
+        self.collection.add(ids=ids, documents=documents, embeddings=embeddings, metadatas=metadatas)
 
     def search(self, query_embedding, top_k=3):
-        return self.collection.query(query_embeddings=[query_embedding.tolist()], n_results=top_k, include=["documents", "metadatas", "distances"])
+        return self.collection.query(query_embeddings=[query_embedding], n_results=top_k, include=["documents", "metadatas", "distances"])
     
     def retrieve_context(self, query_embedding, top_k=3):
         results = self.search(query_embedding, top_k)
